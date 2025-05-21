@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Which Attack on Titan Character Are You?</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Noto+Sans+JP:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="background-emblem"></div>
+    <div class="fog-overlay"></div>
+    <div class="ember-anim"></div>
+    <!-- Home Page -->
+    <section id="home-view" class="view">
+      <div class="home-vertical">
+        <div class="logo-node">
+          <img
+            src="../image/logo.svg"
+            alt="Attack on Titan Logo"
+            class="logo-svg"
+          />
+        </div>
+        <h2 class="landing-title">Which Attack on Titan Character Are You?</h2>
+        <div class="slider-container">
+          <img
+            id="main-slider-img"
+            class="main-art-img"
+            src="../image/Main Art Placeholde.png"
+            alt="Attack on Titan Main Art"
+          />
+        </div>
+        <div class="slider-controls">
+          <button
+            class="slider-arrow left"
+            id="slider-arrow-left"
+            aria-label="Previous image"
+          >
+            &#8592;
+          </button>
+          <div
+            class="thumbs-row carousel"
+            id="slider-thumbs"
+            tabindex="0"
+            aria-label="Character image carousel"
+          >
+            <img
+              class="thumb-img"
+              src="../image/image 10.png"
+              alt="Thumbnail 1"
+              data-index="0"
+            />
+            <img
+              class="thumb-img"
+              src="../image/image 11.png"
+              alt="Thumbnail 2"
+              data-index="1"
+            />
+            <img
+              class="thumb-img"
+              src="../image/image 12.png"
+              alt="Thumbnail 3"
+              data-index="2"
+            />
+            <img
+              class="thumb-img"
+              src="../image/image 13.png"
+              alt="Thumbnail 4"
+              data-index="3"
+            />
+          </div>
+          <button
+            class="slider-arrow right"
+            id="slider-arrow-right"
+            aria-label="Next image"
+          >
+            &#8594;
+          </button>
+        </div>
+        <button
+          id="start-quiz-btn"
+          class="main-btn parchment-btn"
+          aria-label="Take the Test"
+        >
+          Take the Test
+        </button>
+        <audio id="sfx-btn" src="../image/sword.mp3" preload="auto"></audio>
+      </div>
+    </section>
+
+    <!-- Quiz Page -->
+    <section id="quiz-view" class="view hidden">
+      <div class="quiz-container">
+        <h1>Attack on Titan Character Quiz</h1>
+        <form id="quiz-form">
+          <div id="single-question-container"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Result Page -->
+    <section id="result-view" class="view hidden">
+      <div class="container result-container">
+        <div class="confetti"></div>
+        <div class="result-flex">
+          <div class="result-img-col">
+            <img
+              id="result-character-img"
+              class="result-art-img"
+              src="../image/character-placeholder.png"
+              alt="Character Image"
+            />
+          </div>
+          <div class="result-text-col">
+            <h2 id="character-name" class="result-char-name"></h2>
+            <div id="character-desc" class="result-char-desc"></div>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button class="result-share-btn" disabled>Share your result</button>
+          <button id="retake-btn" class="main-btn parchment-btn">
+            Take the test again
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script src="../../backend/mbti-logic.js"></script>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
