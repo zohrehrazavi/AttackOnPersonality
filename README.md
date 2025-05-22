@@ -1,70 +1,45 @@
-# Attack on Titan Personality Quiz
+# Attack on Titan MBTI Personality Quiz
 
-A modern, immersive web quiz that matches you with an Attack on Titan character based on your choices. Features a beautiful animated UI, interactive carousel, parchment-style quiz, and a dramatic result reveal.
+This is a multi-page MBTI-style Attack on Titan personality quiz app built with HTML, CSS, and JavaScript.
 
-## ✨ Features
+## Features
+- Multi-page quiz with 8 questions and image options
+- Each MBTI type (16 total) is mapped to a unique Attack on Titan character
+- Result page shows character name, description, enjoy/avoid lists, quote, and a unique character image
+- All images must be placed in `frontend/image/` and named exactly as referenced in the code (e.g., `Erwin_Smith.png`)
+- Fully responsive and styled with a historical/gothic theme
+- Comprehensive Jest test suite to ensure all logic and assets are correct
 
-- **Animated Homepage:**
+## How to Add/Update Character Images
+- Place your character images in `frontend/image/`
+- The filename must match the `img` property in `backend/mbti-logic.js` (e.g., `Historia_Reiss.png`)
+- All 16 MBTI types must have a unique image
 
-  - Glowing gradient background, animated fog/clouds, and falling embers for ambiance
-  - Horizontal character carousel with smooth scroll, swipe, and glowing highlight
-  - Gothic/medieval fonts and dramatic text-shadow for titles
-  - Animated "Take the Test" button (glow, pulse, bounce)
-  - Fully responsive and mobile-friendly
-
-- **Quiz Page:**
-
-  - Parchment-style or semi-transparent dark background
-  - Animated question card transitions (fade/slide in)
-  - Large, image-based answer cards with glow and selection animation
-  - Progress bar at the top
-  - Next/Previous navigation buttons (no auto-advance)
-  - Consistent dark fantasy font and color palette
-  - Works beautifully on mobile
-
-- **Result Page:**
-  - Character image with fade/zoom animation
-  - Parchment/gradient background and glowing scroll-like frame
-  - Confetti/magical aura effect on reveal
-  - "Share your result" button (UI only)
-  - Dynamic, medieval-style retake button
-  - Responsive stacking for image/text on mobile
-
-## 📂 Project Structure
-
-```
-frontend/
-  html/
-    index.html
-  css/
-    style.css
-  js/
-    script.js
-  image/
-    (your images here)
-backend/
-  mbti-logic.js
-README.md
-```
-
-## 🚀 Getting Started
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/zohrehrazavi/SWE-573-SoftwareDevPractice.git
+## Running Tests
+1. Make sure you have Node.js and npm installed
+2. Install dependencies:
    ```
-2. Open `frontend/html/index.html` in your browser.
-3. Enjoy the quiz!
+   npm install
+   ```
+3. Run the Jest test suite:
+   ```
+   npx jest backend/mbti-logic.test.js --env=node --runInBand
+   ```
+   - This will check:
+     - All MBTI types are mapped
+     - All required character properties exist
+     - All images exist in `frontend/image/`
+     - The quiz logic can reach every character as a result
 
-## 🖼️ Customization
+## Deployment
+- All code is in the `frontend` and `backend` folders
+- No external JS frameworks are used
+- To deploy, push to your GitHub repository and serve the `frontend/html/index.html` file
 
-- Replace placeholder images in `frontend/image/` with your own character and question images.
-- Update sound effects or background images as desired.
-
-## 🤝 Contributing
-
-Pull requests and suggestions are welcome! Please open an issue or PR for improvements.
+## Contributing
+- Please ensure all tests pass before pushing changes
+- Use descriptive commit messages
 
 ---
 
-**Made with 💥 and anime spirit!**
+Enjoy discovering your Attack on Titan personality!

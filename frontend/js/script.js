@@ -61,28 +61,28 @@ const questions = [
 // --- One-by-one Question Flow ---
 const questionImages = [
   [
-    '../image/image 10.png', '../image/image 11.png'
+    '../image/image 1.png', '../image/image 2.png'
   ],
   [
-    '../image/image 11.png', '../image/image 10.png'
+    '../image/image 3.png', '../image/image 4.png'
   ],
   [
-    '../image/image 10.png', '../image/image 11.png'
+    '../image/image 5.png', '../image/image 6.png'
   ],
   [
-    '../image/image 11.png', '../image/image 10.png'
+    '../image/image 7.png', '../image/image 8.png'
   ],
   [
-    '../image/image 10.png', '../image/image 11.png'
+    '../image/image 9.png', '../image/image 10.png'
   ],
   [
-    '../image/image 11.png', '../image/image 10.png'
+    '../image/image 11.png', '../image/image 12.png'
   ],
   [
-    '../image/image 10.png', '../image/image 11.png'
+    '../image/image 13.png', '../image/image 14.png'
   ],
   [
-    '../image/image 11.png', '../image/image 10.png'
+    '../image/image 15.png', '../image/image 16.png'
   ]
 ];
 
@@ -204,11 +204,10 @@ function showView(viewId) {
 
 // --- Main Art Slider ---
 const sliderImages = [
-  '../image/Main Art Placeholde.png',
-  '../image/image 10.png',
-  '../image/image 11.png',
-  '../image/image 12.png',
-  '../image/image 13.png',
+  '../image/home 1.png',
+  '../image/home 2.png',
+  '../image/home 3.png',
+  '../image/home 4.png',
 ];
 let sliderIndex = 0;
 
@@ -232,28 +231,46 @@ if (thumbsRow) {
 function updateSlider(index) {
   const mainImg = document.getElementById('main-slider-img');
   const thumbs = document.querySelectorAll('#slider-thumbs .thumb-img');
+  
+  // Clamp index to 0-3
   sliderIndex = (index + sliderImages.length) % sliderImages.length;
-  mainImg.style.transition = 'none';
-  mainImg.style.opacity = '0.2';
+  
+  // Update main image with fade effect
+  mainImg.style.transition = 'opacity 0.3s ease';
+  mainImg.style.opacity = '0';
+  
   setTimeout(() => {
     mainImg.src = sliderImages[sliderIndex];
-    mainImg.style.transition = 'opacity 0.4s cubic-bezier(.4,2,.6,1)';
     mainImg.style.opacity = '1';
-  }, 120);
+  }, 300);
+  
+  // Update thumbnails
   thumbs.forEach((thumb, i) => {
     thumb.classList.toggle('active', i === sliderIndex);
   });
+  
   // Scroll selected thumb into view
-  if (thumbs[sliderIndex]) thumbs[sliderIndex].scrollIntoView({behavior:'smooth',inline:'center'});
+  const selectedThumb = thumbs[sliderIndex];
+  if (selectedThumb) {
+    selectedThumb.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }
 }
 
 function setupSlider() {
   const leftBtn = document.getElementById('slider-arrow-left');
   const rightBtn = document.getElementById('slider-arrow-right');
   const thumbs = document.querySelectorAll('#slider-thumbs .thumb-img');
+  const thumbsRow = document.getElementById('slider-thumbs');
 
+  // Arrow button click handlers
   leftBtn.addEventListener('click', () => updateSlider(sliderIndex - 1));
   rightBtn.addEventListener('click', () => updateSlider(sliderIndex + 1));
+
+  // Thumbnail click handlers
   thumbs.forEach((thumb, i) => {
     thumb.addEventListener('click', () => updateSlider(i));
   });
@@ -261,17 +278,27 @@ function setupSlider() {
   // Touch swipe support
   let startX = null;
   const mainImg = document.getElementById('main-slider-img');
+  
   mainImg.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
   });
+  
   mainImg.addEventListener('touchend', (e) => {
     if (startX === null) return;
     const endX = e.changedTouches[0].clientX;
-    if (endX - startX > 40) updateSlider(sliderIndex - 1); // swipe right
-    else if (startX - endX > 40) updateSlider(sliderIndex + 1); // swipe left
+    const diff = endX - startX;
+    
+    if (Math.abs(diff) > 50) { // Minimum swipe distance
+      if (diff > 0) {
+        updateSlider(sliderIndex - 1); // Swipe right
+      } else {
+        updateSlider(sliderIndex + 1); // Swipe left
+      }
+    }
     startX = null;
   });
 
+  // Initialize first image
   updateSlider(0);
 }
 
@@ -294,14 +321,35 @@ document.head.appendChild(style);
 
 // Display the result (updated for new layout)
 function displayResult(mbtiType, character) {
-  // Set character name and description
+  // Set character name
   const characterName = document.getElementById('character-name');
-  const characterDesc = document.getElementById('character-desc');
   characterName.textContent = character.name ? `You are ${character.name}.` : '';
+
+  // Set character description
+  const characterDesc = document.getElementById('character-desc');
   characterDesc.textContent = character.desc || '';
-  // Set character image (placeholder for now)
+
+  // Set character image
   const charImg = document.getElementById('result-character-img');
-  if (charImg) charImg.src = '../image/image 10.png';
+  if (charImg) charImg.src = character.img || '../image/image 10.png';
+
+  // Set enjoy list
+  const enjoyList = document.getElementById('enjoy-list');
+  if (enjoyList && character.enjoy) {
+    enjoyList.innerHTML = character.enjoy.map(item => `<li>${item}</li>`).join('');
+  }
+
+  // Set avoid list
+  const avoidList = document.getElementById('avoid-list');
+  if (avoidList && character.avoid) {
+    avoidList.innerHTML = character.avoid.map(item => `<li>${item}</li>`).join('');
+  }
+
+  // Set character quote
+  const quoteEl = document.getElementById('character-quote');
+  if (quoteEl && character.quote) {
+    quoteEl.textContent = `"${character.quote}"`;
+  }
 }
 
 // Retake button logic
